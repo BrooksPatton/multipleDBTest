@@ -16,8 +16,10 @@ var testSchema = mongoose.Schema({
 	b: Number
 });
 
-var Test1 = testConnection1.model('test', testSchema);
-var Test2 = testConnection2.model('test', testSchema);
+var databases = {
+	Test1: testConnection1.model('test', testSchema),
+	Test2: testConnection2.model('test', testSchema)
+};
 
 // function declarations
 
@@ -25,19 +27,8 @@ var Test2 = testConnection2.model('test', testSchema);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/test1', function(req, res, next){
-	console.log(req.body);
-	var test = new Test1(req.body);
-
-	test.save(function(err, test){
-		if(err) return next(err);
-
-		res.json(test);
-	});
-});
-
-app.post('/test2', function(req, res, next){
-	var test = new Test2(req.body);
+app.post('/test', function(req, res, next){
+	var test = new databases[req.headers['x-flowhub-database']](req.body);
 
 	test.save(function(err, test){
 		if(err) return next(err);
