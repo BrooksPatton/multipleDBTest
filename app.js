@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 // local requires
+var config = require('./config');
 
 // variable declarations
 var testConnection1 = mongoose.createConnection('mongodb://localhost/test1');
