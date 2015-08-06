@@ -4,10 +4,13 @@
 var models = require('../models');
 
 // variable declarations
+var database;
 
 // function declarations
 var a = function(req, res, next){
-	var a = new models.A(req.body);
+	database = req.headers['x-flowhub-database'];
+
+	var a = new models.A[database](req.body);
 
 	a.save(function(err, a){
 		if(err) return next(err);

@@ -10,4 +10,4 @@ var A = require('./a');
 // callback declarations
 
 // main
-exports.A = A;
+exports.A = A.get();

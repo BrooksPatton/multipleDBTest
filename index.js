@@ -1,13 +1,13 @@
 // npm requires
 var express = require('express');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 
 // local requires
-var routes = require('./routes');
+var databases = require('./database');
 
 // variables declarations
 var app;
+var routes;
 
 // function declarations
 
@@ -19,7 +19,9 @@ var serverStarted = function(){
 // main
 app = express();
 
-mongoose.connect('mongodb://localhost/doubleTest');
+databases.connect();
+
+routes = require('./routes');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
